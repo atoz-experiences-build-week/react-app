@@ -1,3 +1,9 @@
+/* COLORS */
+#f9ed69
+#f08a5d
+#b83b5e
+#6a2c70
+
 .App {
   text-align: center;
 }
@@ -9,7 +15,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #f08a5d;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
