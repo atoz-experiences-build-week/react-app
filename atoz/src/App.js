@@ -22,7 +22,7 @@ function App() {
             <Link to='/dashboard'>Dashboard</Link>
           </li>
         </ul>
-        {/* <Route exact path='/login' component={Login} /> */}
+        <Route exact path='/login' component={Login} />
         {/* <PrivateRoute
          exact path='/experiences'
          component={Experiences}
