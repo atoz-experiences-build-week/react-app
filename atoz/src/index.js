@@ -7,11 +7,11 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk  from 'redux-thunk'
 import logger from 'redux-logger'
 import { BrowserRouter as Route } from 'react-router-dom'
-// import rootReducer from './reducers'
+import { reducer } from './reducers'
 
 
 const store = createStore(
-  // rootReducer,
+  reducer,
   applyMiddleware(thunk, logger)
 )
 
