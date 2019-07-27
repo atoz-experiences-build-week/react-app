@@ -3,91 +3,90 @@ import Loader from "react-loader-spinner"
 import { connect } from 'react-redux'
 import { postExperience } from '../actions/actions';
 
-class Register extends React.Component {
-  state = {
-    experience: {
+class PostExperience extends React.Component {
+  state = { 
       title: "",
       date: "",
       location: "",
       price: "",
       description: ""
     }
-  }
+  
 
-  handleChange = e => {
-    this.setState({
-      credentials: {
-        ...this.state.experience,
-        [e.target.name]: e.target.value
-      }
-    });
-  };
-
-  register = e => {
-    e.preventDefault();
-      this.props.postExperience(this.state.experience).then(() => {
-      this.props.history.push('/dashboard');
-    });
-  };
+    handleChange = e => {
+      e.preventDefault()
+      this.setState({ [e.target.name]: e.target.value })
+    }
+  
+  
+    postExperienceHandler = (e)=> {
+      e.preventDefault()
+      const {title, date, location, price, description} = this.state
+      this.props.postExperience({ title, date, location, price, description})
+      this.setState({   
+        title: "",
+        date: "",
+        location: "",
+        price: "",
+        description: "" 
+      });
+      this.props.history.push('/dashboard')
+    }
 
 
 render() {
+  console.log('PROPS of POST COMPONENT', this.props)
   return (
    <div className='login-form'>
     
     {this.props.error && this.props.error} 
 
-    <form onSubmit={this.register}>
+    <h1>Tell us about your experience...</h1>
+
+    <form onSubmit={this.postExperienceHandler}>
       <input
         type='text'
         name='title'
-        placeholder='Username'
-        value={this.state.credentials.username}
+        placeholder='Title'
+        value={this.state.title}
         onChange={this.handleChange}
       />
       <input
         type='date'
         name='date'
-        placeholder='Password'
-        value={this.state.credentials.password}
+        placeholder='Date'
+        value={this.state.date}
         onChange={this.handleChange}
       />
       <input
         type='text'
         name='location'
-        placeholder='First Name'
-        value={this.state.credentials.first_name}
+        placeholder='Location'
+        value={this.state.location}
         onChange={this.handleChange}
       />
       <input
         type='number'
         name='price'
-        placeholder='Last Name'
-        value={this.state.credentials.last_name}
-        onChange={this.handleChange}
-      />
-      <input
-        type='email'
-        name='email'
-        placeholder='Email'
-        value={this.state.credentials.email}
+        placeholder='Price'
+        value={this.state.price}
         onChange={this.handleChange}
       />
       <input
         type='text'
         name='description'
-        placeholder='City'
-        value={this.state.credentials.city}
+        placeholder='Description'
+        value={this.state.description}
         onChange={this.handleChange}
       />
-      
+    
        <button>
-        {this.props.isLoggingIn ? (
+        {this.props.postingExperience ? (
           <Loader 
           type="ThreeDots" 
           color="#1f2a38" 
           height="12" 
-          width="26" /> ) : ( "Sign Up" )}
+          width="26" /> ) : ( 'Add Experience' )}
           {/* {this.props.isLoggingIn ? 'Loading' : 'Login'} */}
        </button>
 
@@ -98,15 +97,15 @@ render() {
 }
 
 const mapStateToProps = state => {
-  console.log('STATE from mapStateToProps:', state)
+  console.log('STATE from POST mapStateToProps:', state)
   return {
-    postingExperience: state.postExperience,
-    error: state.error
+    postingExperience: state.postingExperience,
+    error: state.error,
   }
 }
 
 export default connect(
   mapStateToProps,
   { postExperience }
-)(Register)
+)(PostExperience)
 

@@ -66,24 +66,24 @@ export const getUsers = () => dispatch => {
   })
 };
 
+// USERS BY ID
+// export const FETCH_USER_START = "FETCH_USER_START";
+// export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+// export const FETCH_USER_ERROR = "FETCH_USER_ERROR";
 
-export const FETCH_USER_START = "FETCH_USER_START";
-export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
-export const FETCH_USER_ERROR = "FETCH_USER_ERROR";
 
-
-export const getUserById = id => dispatch => {
-  dispatch({ type: FETCH_USER_START });
-  axiosWithAuth()
- .get(`/users/${id}`)
- .then(res => {
-   console.log('RES GET CALL from AXIOS', res)
-   dispatch({type: FETCH_USER_SUCCESS, payload: res.data.user})
- })
-  .catch(err => {
-    dispatch({type: FETCH_USER_ERROR})
-  })
-};
+// export const getUserById = id => dispatch => {
+//   dispatch({ type: FETCH_USER_START });
+//   axiosWithAuth()
+//  .get(`/users/${id}`)
+//  .then(res => {
+//    console.log('RES GET CALL from AXIOS', res)
+//    dispatch({type: FETCH_USER_SUCCESS, payload: res.data.user})
+//  })
+//   .catch(err => {
+//     dispatch({type: FETCH_USER_ERROR})
+//   })
+// };
 
 
 
@@ -95,18 +95,20 @@ export const POSTING_ERROR = "POSTING_ERROR";
 
 export const postExperience = experience => {
   const newExperience =  axiosWithAuth()
-  .post(`/friends`, experience);
+  .post(`/experiences`, experience);
    return dispatch => {
     dispatch({ type: POSTING_START });
     newExperience
       .then(res => {
+        console.log('RES of POST', res)
         dispatch({ type: POSTING_SUCCESS, payload: res.data });
       })
       .catch(err => {
-        dispatch({ type: POSTING_ERROR, payload: err });
+        dispatch({ type: POSTING_ERROR, payload: err.message });
       });
   };
 };
+
 
 
 // export const DELETE_START = "DELETE_START";

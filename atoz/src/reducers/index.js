@@ -11,13 +11,13 @@ import {
   FETCH_USERS_SUCCESS,
   FETCH_USERS_ERROR ,
 
-  FETCH_USER_START,
-  FETCH_USER_SUCCESS,
-  FETCH_USER_ERROR ,
+  // FETCH_USER_START,
+  // FETCH_USER_SUCCESS,
+  // FETCH_USER_ERROR ,
 
-  // POSTING_START,
-  // POSTING_SUCCESS,
-  // POSTING_ERROR,
+  POSTING_START,
+  POSTING_SUCCESS,
+  POSTING_ERROR,
 
   // DELETE_START,
   // DELETE_SUCCESS,
@@ -129,27 +129,27 @@ export const reducer = (state = initialState, action) => {
 
           //FETCHING USER BY ID
 
-        case FETCH_USER_START:
-          return {
-            ...state,
-            fetchingUser: true,
-            error: null
-          }
+        // case FETCH_USER_START:
+        //   return {
+        //     ...state,
+        //     fetchingUser: true,
+        //     error: null
+        //   }
 
-        case FETCH_USER_SUCCESS:
-          return {
-            ...state,
-            fetchingUser: false,
-            error: null,
-            user: action.payload
-          }
+        // case FETCH_USER_SUCCESS:
+        //   return {
+        //     ...state,
+        //     fetchingUser: false,
+        //     error: null,
+        //     user: action.payload
+        //   }
 
-        case FETCH_USER_ERROR:
-          return {
-            ...state,
-            fetchingUser: false,
-            error: 'Something wrong with friends😵!'
-          }
+        // case FETCH_USER_ERROR:
+        //   return {
+        //     ...state,
+        //     fetchingUser: false,
+        //     error: 'Something wrong with friends😵!'
+        //   }
 
           
           //POSTING EXPERIENCES  
@@ -157,21 +157,21 @@ export const reducer = (state = initialState, action) => {
           case POSTING_START:
             return {
               ...state,
-              postingFriend: true,
+              postingExperience: true,
               error: null,
             }
           case POSTING_SUCCESS:
             return {
               ...state,
-              friends: action.payload,
-              postingFriend: false,
-              error: null
+              postingExperience: false,
+              error: null,
+              experiences: action.payload
             }
           case POSTING_ERROR:
             return {
               ...state,
-              postingFriend: false,
-              error: action.payload.status
+              postingExperience: false,
+              error: action.payload
             }
               
         //      //DELETING EXPERIENCE

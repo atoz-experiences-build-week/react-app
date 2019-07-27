@@ -6,11 +6,10 @@ import PrivateRoute from './PrivateRoute'
 import Register from './components/Register'
 import Login from './components/Login'
 // import Experiences from './components/Experiences'
-// import PostExperience from './components/PostExperience'
-import Users from './components/Users'
-import User from './components/Users'
+//import Users from './components/Users'
 import Dashboard from './components/Dashboard';
 import Home from './components/Home'
+import PostExperience from './components/PostExperience'
 
 
 class App extends React.Component {
@@ -33,7 +32,6 @@ class App extends React.Component {
         </ul>
 
        <header className="App-header">
-        <h1> Welcome to AtoZ experiences!  </h1>
       
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
@@ -49,14 +47,11 @@ class App extends React.Component {
         />
 
         <PrivateRoute
-         exact path='/user'
-         component={User}
+         exact path='/post'
+         component={PostExperience}
         />
       
-       <PrivateRoute
-         exact path='/users'
-         component={Users}
-        /> 
+     
       </header>
     </div>
   )

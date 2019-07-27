@@ -83,7 +83,7 @@ render() {
       />
       
        <button>
-        {this.props.isLoggingIn ? (
+        {this.props.registering ? (
           <Loader 
           type="ThreeDots" 
           color="#1f2a38" 
