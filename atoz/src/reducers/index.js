@@ -7,24 +7,23 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
 
-  FETCH_USERS_START,
-  FETCH_USERS_SUCCESS,
-  FETCH_USERS_ERROR ,
+  LOGOUT_SUCCESS,
 
-  // FETCH_USER_START,
-  // FETCH_USER_SUCCESS,
-  // FETCH_USER_ERROR ,
+  FETCH_EXPERIENCES_START,
+  FETCH_EXPERIENCES_SUCCESS,
+  FETCH_EXPERIENCES_ERROR ,
 
   POSTING_START,
   POSTING_SUCCESS,
   POSTING_ERROR,
 
-  // DELETE_START,
-  // DELETE_SUCCESS,
-  // USER_UNAUTHORIZED,
+  DELETE_START,
+  DELETE_SUCCESS,
+  USER_UNAUTHORIZED,
 
-  // EDIT_FRIEND_START,
-  // EDIT_FRIEND_SUCCESS,
+  EDIT_EXPERIENCE_START,
+  EDIT_EXPERIENCE_SUCCESS,
+  EDIT_EXPERIENCE_FAILURE
 } from "../actions/actions";
 
 
@@ -40,15 +39,17 @@ const initialState = {
   error: null,
   isLoggingIn: false,
 
-  fetchingUsers: false,
-  fetchingUser: false,
+  loggedIn: false,
+
+  fetchingExperiences: false,
 
    experiences: [],
    postingExperience: false,
 
-  // deletingExperience: false,
-  // errorStatusCode: null,
-  // editingFriend: false,
+   deletingExperience: false,
+   deleteMessage: '',
+
+   editingExperience: false
 }
 
 
@@ -60,7 +61,8 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
           error: null,
-          registering: true
+          registering: true,
+          newUser: ''
      }
 
       case REGISTER_SUCCESS:
@@ -69,14 +71,17 @@ export const reducer = (state = initialState, action) => {
           error: null,
           registering: false,
           registerMessage: action.message,
-          newUser: action.payload
+          newUser: action.payload,
+          loggedIn: true
         }
 
         case REGISTER_ERROR:
           return {
             ...state,
             registering: false,
-            error: action.payload
+            error: action.payload,
+            loggedIn: false,
+            newUser: ''
           }
 
              //LOGIN 
@@ -84,7 +89,9 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
           error: null,
-          isLoggingIn: true
+          isLoggingIn: true,
+          loggedInUser: '',
+          loggedIn: false,
      }
 
       case LOGIN_SUCCESS:
@@ -93,64 +100,58 @@ export const reducer = (state = initialState, action) => {
           error: null,
           isLoggingIn: false,
           loginMessage: action.message,
-          loggedInUser: action.payload
+          loggedInUser: action.payload,
+          loggedIn: true,
+          logout: true
         }
 
         case LOGIN_ERROR:
           return {
             ...state,
             isLoggingIn: false,
-            error: action.payload
+            error: action.payload,
+            loggedInUser: '',
+            loggedIn: false
           }
 
-          //FETCHING USERS
+          //LOGOUT
+          case LOGOUT_SUCCESS:
+            return {
+              ...state,
+              registerMessage: '',
+              loginMessage: '',
+              loggedInUser: '',
+              newUser: '',
+              loggedIn: false,
+            }
 
-        case FETCH_USERS_START:
+
+
+          //FETCHING EXPERIENCES
+
+        case FETCH_EXPERIENCES_START:
           return {
             ...state,
-            fetchingUsers: true,
+            fetchingExperiences: true,
             error: null
           }
 
-        case FETCH_USERS_SUCCESS:
+        case FETCH_EXPERIENCES_SUCCESS:
           return {
             ...state,
-            fetchingUsers: false,
+           fetchingExperiences: false,
             error: null,
-            users: action.payload
+            experiences: action.payload
           }
 
-        case FETCH_USERS_ERROR:
+        case FETCH_EXPERIENCES_ERROR:
           return {
             ...state,
-            fetchingUsers: false,
-            error: 'Something wrong with friends😵!'
+            fetchingExperiences: false,
+            error: action.payload
           }
 
-          //FETCHING USER BY ID
-
-        // case FETCH_USER_START:
-        //   return {
-        //     ...state,
-        //     fetchingUser: true,
-        //     error: null
-        //   }
-
-        // case FETCH_USER_SUCCESS:
-        //   return {
-        //     ...state,
-        //     fetchingUser: false,
-        //     error: null,
-        //     user: action.payload
-        //   }
-
-        // case FETCH_USER_ERROR:
-        //   return {
-        //     ...state,
-        //     fetchingUser: false,
-        //     error: 'Something wrong with friends😵!'
-        //   }
-
+       
           
           //POSTING EXPERIENCES  
 
@@ -174,46 +175,52 @@ export const reducer = (state = initialState, action) => {
               error: action.payload
             }
               
-        //      //DELETING EXPERIENCE
+              //DELETING EXPERIENCE
 
-        //     case DELETE_START:
-        //       return {
-        //         ...state,
-        //         deletingExperience: true
-        //       };
-        //     case DELETE_SUCCESS:
-        //       return {
-        //         ...state,
-        //         deletingExperience: false,
-        //         error: '',
-        //         errorStatusCode: null,
-        //         friends: action.payload
-        //       };
-        //       case USER_UNAUTHORIZED:
-        //         console.log(action);
-        //         return {
-        //           ...state,
-        //           error: action.payload.data.error,
-        //           errorStatusCode: action.payload.status,
-        //           fetchingFriends: false
-        //         };
+            case DELETE_START:
+              return {
+                ...state,
+                deletingExperience: true
+              };
+            case DELETE_SUCCESS:
+              return {
+                ...state,
+                deletingExperience: false,
+                error: '',
+                // friends: action.payload,
+                deleteMessage: action.message
+              };
+              case USER_UNAUTHORIZED:
+                console.log(action);
+                return {
+                  ...state,
+                  error: action.payload.data.error,
+                  errorStatusCode: action.payload.status,
+                  fetchingFriends: false,
+                  deleteMessage: ''
+                };
 
 
-        //         //EDIT EXPERIENCE
+                // EDIT EXPERIENCE
                 
-        //         case EDIT_EXPERIENCE_START:
-        //           return {
-        //             ...state,
-        //             editingFriend: true
-        //           };
-        //         case EDIT_EXPERIENCE_SUCCESS:
-        //           return {
-        //             ...state,
-        //             editingFriend: false,
-        //             error: '',
-        //             errorStatusCode: null,
-        //             friends: action.payload
-        //           };
+                case EDIT_EXPERIENCE_START:
+                  return {
+                    ...state,
+                    editingExperience: true
+                  };
+                case EDIT_EXPERIENCE_SUCCESS:
+                  return {
+                    ...state,
+                    editingExperience: false,
+                    error: '',
+                    experiences: action.payload
+                  };
+                case EDIT_EXPERIENCE_FAILURE:
+                  return {
+                    ...state,
+                    editingExperience: false,
+                    error: action.payload
+                  };
 
       default:
       return state

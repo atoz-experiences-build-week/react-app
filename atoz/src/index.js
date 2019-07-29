@@ -8,6 +8,7 @@ import thunk  from 'redux-thunk'
 import logger from 'redux-logger'
 import { BrowserRouter as Route } from 'react-router-dom'
 import { reducer } from './reducers'
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const store = createStore(

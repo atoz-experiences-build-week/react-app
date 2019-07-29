@@ -5,6 +5,7 @@ export const axiosWithAuth = () => {
 
   return axios.create({
     headers: {
+      'Content-Type':'application/json',
       Authorization: token
     },
     baseURL: "https://atoz-backend.herokuapp.com/api"

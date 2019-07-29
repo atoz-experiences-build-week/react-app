@@ -41,7 +41,7 @@ render() {
     
     {this.props.error && this.props.error} 
 
-    <h1>Tell us about your experience...</h1>
+    <h1>Let's add an experience!</h1>
 
     <form onSubmit={this.postExperienceHandler}>
       <input

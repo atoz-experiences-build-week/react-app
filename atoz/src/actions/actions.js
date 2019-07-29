@@ -48,44 +48,33 @@ export const login = creds => dispatch => {
  };
 
 
-export const FETCH_USERS_START = "FETCH_USERS_START";
-export const FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
-export const FETCH_USERS_ERROR = "FETCH_USERS_ERROR";
+ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
-
-export const getUsers = () => dispatch => {
-  dispatch({ type: FETCH_USERS_START });
-  axiosWithAuth()
- .get('/users')
- .then(res => {
-   console.log('RES GET CALL from AXIOS', res)
-   dispatch({type: FETCH_USERS_SUCCESS, payload: res.data.users})
- })
-  .catch(err => {
-    dispatch({type: FETCH_USERS_ERROR})
-  })
+ export const logout = () => {
+   console.log('LOG OUT LOG', logout)
+  return {
+    type: 'LOGOUT_SUCCESS'
+  }
 };
 
-// USERS BY ID
-// export const FETCH_USER_START = "FETCH_USER_START";
-// export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
-// export const FETCH_USER_ERROR = "FETCH_USER_ERROR";
+
+export const FETCH_EXPERIENCES_START = "FETCH_EXPERIENCES_START";
+export const FETCH_EXPERIENCES_SUCCESS = "FETCH_EXPERIENCES_SUCCESS";
+export const FETCH_EXPERIENCES_ERROR = "FETCH_EXPERIENCES_ERROR";
 
 
-// export const getUserById = id => dispatch => {
-//   dispatch({ type: FETCH_USER_START });
-//   axiosWithAuth()
-//  .get(`/users/${id}`)
-//  .then(res => {
-//    console.log('RES GET CALL from AXIOS', res)
-//    dispatch({type: FETCH_USER_SUCCESS, payload: res.data.user})
-//  })
-//   .catch(err => {
-//     dispatch({type: FETCH_USER_ERROR})
-//   })
-// };
-
-
+export const getExperiences = () => dispatch => {
+  dispatch({ type: FETCH_EXPERIENCES_START });
+  axiosWithAuth()
+ .get('/experiences')
+ .then(res => {
+   console.log('RES GET CALL from AXIOS', res)
+   dispatch({type: FETCH_EXPERIENCES_SUCCESS, payload: res.data.experiences})
+ })
+  .catch(err => {
+    dispatch({type: FETCH_EXPERIENCES_ERROR, payload: err.message})
+  })
+};
 
 
 export const POSTING_START = "POSTING_START";
@@ -110,54 +99,64 @@ export const postExperience = experience => {
 };
 
 
+//DELETE
 
-// export const DELETE_START = "DELETE_START";
-// export const DELETE_SUCCESS = "DELETE_SUCCESS";
-// export const DELETE_ERROR = "DELETE_ERROR";
-// export const USER_UNAUTHORIZED = 'USER_UNAUTHORIZED';
-
-
-// export const deleteFriend = id => dispatch => {
-//   dispatch({ type: DELETE_START });
-//   axios
-//     .delete(`http://localhost:5000/api/friends/${id}`, {
-//       headers: { Authorization: localStorage.getItem('token') }
-//     })
-//     .then(res => {
-//       dispatch({ type: DELETE_SUCCESS, payload: res.data });
-//     })
-//     .catch(err => {
-//       console.log('call failed: ', err.response);
-//       if (err.response.status === 403) {
-//         dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
-//       } else {
-//         dispatch({ type: DELETE_ERROR, payload: err.response });
-//       }
-//     });
-// };
+export const DELETE_START = "DELETE_START";
+export const DELETE_SUCCESS = "DELETE_SUCCESS";
+export const DELETE_ERROR = "DELETE_ERROR";
+export const USER_UNAUTHORIZED = 'USER_UNAUTHORIZED';
 
 
-// export const EDIT_FRIEND_START = 'EDIT_FRIEND_START';
-// export const EDIT_FRIEND_SUCCESS = 'EDIT_FRIEND_SUCCESS';
-// export const EDIT_FRIEND_FAILURE = 'EDIT_FRIEND_FAILURE';
+export const deleteExperience = id => dispatch => {
+  dispatch({ type: DELETE_START });
+  axios
+    .delete(`https://atoz-backend.herokuapp.com/api/experiences/${id}`, {
+      headers: { Authorization: localStorage.getItem('token') }
+    })
+    .then(res => {
+      console.log('RES OF DELETE AXIOS CALL', res)
+      dispatch({
+         type: DELETE_SUCCESS, 
+        //  payload: res.data,
+         message: res.data.message
+        });
+    })
+    .catch(err => {
+      console.log('call failed: ', err.response);
+      // if (err.response.status === 403) {
+      //   dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
+      // } else {
+      //   dispatch({ type: DELETE_ERROR, payload: err.response });
+      // }
+    });
+};
 
-// export const editFriend = friend => dispatch => {
-//   dispatch({ type: EDIT_FRIEND_START });
-//   return axios
-//     .put(`http://localhost:5000/api/friends/${friend.id}`, friend, {
-//       headers: { Authorization: localStorage.getItem('token') }
-//     })
-//     .then(res => {
-//       dispatch({ type: EDIT_FRIEND_SUCCESS, payload: res.data });
-//     })
-//     .catch(err => {
-//       if (err.response.status === 403) {
-//         dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
-//       } else {
-//         dispatch({ type: EDIT_FRIEND_FAILURE, payload: err.response });
-//       }
-//     });
-// };
+
+//EDIT
+
+export const EDIT_EXPERIENCE_START = 'EDIT_EXPERIENCE_START';
+export const EDIT_EXPERIENCE_SUCCESS = 'EDIT_EXPERIENCE_SUCCESS';
+export const EDIT_EXPERIENCE_FAILURE = 'EDIT_EXPERIENCE_FAILURE';
+
+export const updateExperience = experience => dispatch => {
+  dispatch({ type: EDIT_EXPERIENCE_START });
+  return axios
+    .put(`https://atoz-backend.herokuapp.com/api/experiences/${experience.id}`, experience, { 
+      headers: { Authorization: localStorage.getItem('token') }
+    })
+    .then(res => {
+      console.log('fffffffffffffffffffffRES OF PUTTTTTTTT AXIOS CALL', res)
+      dispatch({ type: EDIT_EXPERIENCE_SUCCESS, payload: res.data.experiences });
+    })
+    .catch(err => {
+      // console.log(err)
+      if (err.response.status === 403) {
+        dispatch({ type: USER_UNAUTHORIZED, payload: err });
+      } else {
+        dispatch({ type: EDIT_EXPERIENCE_FAILURE, payload: err.data });
+      }
+    });
+};
 
 
 
