@@ -1,8 +1,9 @@
 import React from 'react'
-import Loader from "react-loader-spinner"
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login } from '../../actions/actions';
-import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import {  Form, Input } from 'reactstrap'
+import './Login.css'
 
 class Login extends React.Component {
   state = {
@@ -32,29 +33,13 @@ class Login extends React.Component {
 render() {
   return (
    <div className='login-page'>
+   <div className='form-wrapper'>
     {this.props.error && this.props.error} 
-
-    {/* <form onSubmit={this.login}>
-      <input
-        type='text'
-        name='username'
-        placeholder='Username'
-        value={this.state.credentials.username}
-        onChange={this.handleChange}
-      />
-      <input
-        type='password'
-        name='password'
-        placeholder='Password'
-        value={this.state.credentials.password}
-        onChange={this.handleChange}
-      />
-     </form> */}
-
-     <form onSubmit={this.login}> 
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Label for="exampleEmail" className="mr-sm-2">Email</Label>
+    <h1>Log In here</h1>
+     <Form className='login-form' onSubmit={this.login}> 
+          {/* <Label for="exampleEmail" className="mr-sm-2">Username</Label> */}
           <Input 
+            className='login-input'
             type="text" 
             name='username'
             id="text" 
@@ -62,11 +47,10 @@ render() {
             value={this.state.credentials.username}
             onChange={this.handleChange}
            />
-        </FormGroup>
-
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Label for="examplePassword" className="mr-sm-2">Password</Label>
+  
+          {/* <Label for="examplePassword" className="mr-sm-2">Password</Label> */}
           <Input 
+            className='login-input'
             type="password" 
             name="password" 
             id="examplePassword" 
@@ -74,17 +58,13 @@ render() {
             value={this.state.credentials.password}
             onChange={this.handleChange}
            />
-        </FormGroup>
-        <button type="submit" class="btn btn-primary">
-        {/* {this.props.isLoggingIn ? (
-          <Loader 
-          type="ThreeDots" 
-          color="#1f2a38" 
-          height="12" 
-          width="26" /> ) : ( "Sign in" )} */}
+
+        <button type="submit" class="btn btn-login btn-primary">
           {this.props.isLoggingIn ? 'Loading' : 'Login'}
         </button>
-      </form>
+        <p>Do not have an account yet?<Link to='/register'>Sign Up here!</Link></p>
+      </Form>
+      </div>
    </div>
    )
   }

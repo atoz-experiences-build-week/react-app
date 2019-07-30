@@ -1,7 +1,9 @@
 import React from 'react'
-import Loader from "react-loader-spinner"
 import { connect } from 'react-redux'
 import { register } from '../../actions/actions';
+import './Register.css'
+import {Link} from 'react-router-dom'
+import {  Form, Input } from 'reactstrap'
 
 class Register extends React.Component {
   state = {
@@ -37,62 +39,55 @@ render() {
    <div className='login-form'>
     
     {this.props.error && this.props.error} 
-
-    <form onSubmit={this.register}>
-      <input
+    <h1>Sign Up here</h1>
+    <Form className='register-form' onSubmit={this.register}>
+      <Input
         type='text'
         name='username'
         placeholder='Username'
         value={this.state.credentials.username}
         onChange={this.handleChange}
       />
-      <input
+      <Input
         type='password'
         name='password'
         placeholder='Password'
         value={this.state.credentials.password}
         onChange={this.handleChange}
       />
-      <input
+      <Input
         type='text'
         name='first_name'
         placeholder='First Name'
         value={this.state.credentials.first_name}
         onChange={this.handleChange}
       />
-      <input
+      <Input
         type='text'
         name='last_name'
         placeholder='Last Name'
         value={this.state.credentials.last_name}
         onChange={this.handleChange}
       />
-      <input
+      <Input
         type='email'
         name='email'
         placeholder='Email'
         value={this.state.credentials.email}
         onChange={this.handleChange}
       />
-      <input
+      <Input
         type='text'
         name='city'
         placeholder='City'
         value={this.state.credentials.city}
         onChange={this.handleChange}
       />
-      
-       <button>
-        {this.props.registering ? (
-          <Loader 
-          type="ThreeDots" 
-          color="#1f2a38" 
-          height="12" 
-          width="26" /> ) : ( "Sign Up" )}
-          {/* {this.props.isLoggingIn ? 'Loading' : 'Login'} */}
+       <button className='btn-register btn btn-primary'>
+          {this.props.isLoggingIn ? 'Loading' : 'Sign Up'} 
        </button>
-
-    </form>
+       <p>Already have an account?<Link to='/login'>Log In here!</Link></p>
+    </Form>
    </div>
    )
   }

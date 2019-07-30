@@ -1,7 +1,10 @@
 import React from 'react'
-import Loader from "react-loader-spinner"
+//import Loader from "react-loader-spinner"
 import { connect } from 'react-redux'
-import { postExperience } from '../../actions/actions';
+import { postExperience } from '../../actions/actions'
+import {  Form, Input } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import './Post.css'
 
 class PostExperience extends React.Component {
   state = { 
@@ -43,54 +46,54 @@ render() {
 
     <h1>Let's add an experience!</h1>
 
-    <form onSubmit={this.postExperienceHandler}>
-      <input
+    <Form className='post-form' onSubmit={this.postExperienceHandler}>
+      <Input
         type='text'
         name='title'
         placeholder='Title'
         value={this.state.title}
         onChange={this.handleChange}
       />
-      <input
+      <Input
         type='date'
         name='date'
         placeholder='Date'
         value={this.state.date}
         onChange={this.handleChange}
       />
-      <input
+      <Input
         type='text'
         name='location'
         placeholder='Location'
         value={this.state.location}
         onChange={this.handleChange}
       />
-      <input
+      <Input
         type='number'
         name='price'
         placeholder='Price'
         value={this.state.price}
         onChange={this.handleChange}
       />
-      <input
-        type='text'
+      <Input
+        type='textarea'
         name='description'
         placeholder='Description'
         value={this.state.description}
         onChange={this.handleChange}
       />
     
-       <button>
-        {this.props.postingExperience ? (
+       <button className='btn-post btn btn-primary'>
+        {/* {this.props.postingExperience ? (
           <Loader 
           type="ThreeDots" 
           color="#1f2a38" 
           height="12" 
-          width="26" /> ) : ( 'Add Experience' )}
-          {/* {this.props.isLoggingIn ? 'Loading' : 'Login'} */}
+          width="26" /> ) : ( 'Add Experience' )} */}
+          {this.props.isLoggingIn ? 'Loading' : 'Share'}
        </button>
-
-    </form>
+       <p><Link to='/dashboard'>Go back</Link></p>
+    </Form>
    </div>
    )
   }
