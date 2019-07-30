@@ -5,12 +5,12 @@ import PrivateRoute from './PrivateRoute'
 import { connect } from 'react-redux'
 import { register, login } from './actions/actions'
 
-import Register from './components/Register'
-import Login from './components/Login'
+import Register from './components/Register/Register'
+import Login from './components/Login/Login'
 import {logout} from './actions/actions'
-import Dashboard from './components/Dashboard';
-import Home from './components/Home'
-import PostExperience from './components/PostForm'
+import Dashboard from './components/Dashboard/Dashboard';
+import Home from './components/Home/Home'
+import PostExperience from './components/Forms/PostForm'
 
 
 
@@ -34,8 +34,7 @@ class App extends React.Component {
           <li>
              {this.props.loggedIn ? 
              <div className="div">
-             <button onClick={this.logOut}>Logout</button> 
-             <button> <Link to='/post'>Post Experience</Link></button> 
+             <button onClick={this.logOut} class="btn btm-sm btn-primary">Logout</button> 
              </div> : 
               <span>
                 <Link to='/login'>Login</Link>

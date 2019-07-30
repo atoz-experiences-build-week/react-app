@@ -1,7 +1,8 @@
 import React from 'react'
 import Loader from "react-loader-spinner"
 import { connect } from 'react-redux'
-import { login } from '../actions/actions';
+import { login } from '../../actions/actions';
+import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 class Login extends React.Component {
   state = {
@@ -30,10 +31,10 @@ class Login extends React.Component {
 
 render() {
   return (
-   <div className='login-form'>
+   <div className='login-page'>
     {this.props.error && this.props.error} 
 
-    <form onSubmit={this.login}>
+    {/* <form onSubmit={this.login}>
       <input
         type='text'
         name='username'
@@ -48,18 +49,42 @@ render() {
         value={this.state.credentials.password}
         onChange={this.handleChange}
       />
-      
-       <button>
-        {this.props.isLoggingIn ? (
+     </form> */}
+
+     <form onSubmit={this.login}> 
+        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+          <Label for="exampleEmail" className="mr-sm-2">Email</Label>
+          <Input 
+            type="text" 
+            name='username'
+            id="text" 
+            placeholder="Username"
+            value={this.state.credentials.username}
+            onChange={this.handleChange}
+           />
+        </FormGroup>
+
+        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+          <Label for="examplePassword" className="mr-sm-2">Password</Label>
+          <Input 
+            type="password" 
+            name="password" 
+            id="examplePassword" 
+            placeholder="Password" 
+            value={this.state.credentials.password}
+            onChange={this.handleChange}
+           />
+        </FormGroup>
+        <button type="submit" class="btn btn-primary">
+        {/* {this.props.isLoggingIn ? (
           <Loader 
           type="ThreeDots" 
           color="#1f2a38" 
           height="12" 
-          width="26" /> ) : ( "Log in" )}
-          {/* {this.props.isLoggingIn ? 'Loading' : 'Login'} */}
-       </button>
-
-    </form>
+          width="26" /> ) : ( "Sign in" )} */}
+          {this.props.isLoggingIn ? 'Loading' : 'Login'}
+        </button>
+      </form>
    </div>
    )
   }

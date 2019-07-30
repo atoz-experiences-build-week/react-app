@@ -6,22 +6,34 @@ class UpdateForm extends React.Component {
     experience: this.props.experience
   };
 
-  handleChanges = e => {
-    let value = e.target.value;
-    if (e.target.name === 'price') {
-      value = parseInt(value, 10);
-    }
+  //WITH CHANGING STRING TO NUMBER 
+  // handleChanges = e => {
+  //   let value = e.target.value;
+  //   if (e.target.name === 'price') {
+  //     value = parseInt(value, 10);
+  //   }
 
+  //   this.setState({
+  //     experience: {
+  //       ...this.state.experience,
+  //       [e.target.name]: value
+  //     }
+  //   });
+  // };
+
+  handleChanges = e => {
+    e.preventDefault()
     this.setState({
       experience: {
         ...this.state.experience,
-        [e.target.name]: value
+        [e.target.name]: e.target.value
       }
-    });
-  };
+    })
+  }
+  
 
   updateExperience = e => {
-    this.props.updateExperience(e, this.state.experience);
+    this.props.editExperience(e, this.state.experience);
   };
 
   render() {
@@ -80,7 +92,7 @@ class UpdateForm extends React.Component {
             {this.props.editingExperience ? (
               <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
             ) : (
-              'Edit Experience'
+              'Save'
             )}
           </button>
         </form>

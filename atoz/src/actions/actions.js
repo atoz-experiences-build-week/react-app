@@ -117,17 +117,17 @@ export const deleteExperience = id => dispatch => {
       console.log('RES OF DELETE AXIOS CALL', res)
       dispatch({
          type: DELETE_SUCCESS, 
-        //  payload: res.data,
+        // payload: res.data.experiences,
          message: res.data.message
         });
     })
     .catch(err => {
       console.log('call failed: ', err.response);
-      // if (err.response.status === 403) {
-      //   dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
-      // } else {
-      //   dispatch({ type: DELETE_ERROR, payload: err.response });
-      // }
+      if (err.response.status === 500) {
+        dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
+      } else {
+        dispatch({ type: DELETE_ERROR, payload: err.response });
+      }
     });
 };
 
@@ -139,7 +139,7 @@ export const EDIT_EXPERIENCE_SUCCESS = 'EDIT_EXPERIENCE_SUCCESS';
 export const EDIT_EXPERIENCE_FAILURE = 'EDIT_EXPERIENCE_FAILURE';
 
 export const updateExperience = experience => dispatch => {
-  dispatch({ type: EDIT_EXPERIENCE_START });
+  dispatch({ type: EDIT_EXPERIENCE_START })
   return axios
     .put(`https://atoz-backend.herokuapp.com/api/experiences/${experience.id}`, experience, { 
       headers: { Authorization: localStorage.getItem('token') }
@@ -149,12 +149,12 @@ export const updateExperience = experience => dispatch => {
       dispatch({ type: EDIT_EXPERIENCE_SUCCESS, payload: res.data.experiences });
     })
     .catch(err => {
-      // console.log(err)
-      if (err.response.status === 403) {
-        dispatch({ type: USER_UNAUTHORIZED, payload: err });
-      } else {
-        dispatch({ type: EDIT_EXPERIENCE_FAILURE, payload: err.data });
-      }
+      console.log(err)
+      // if (err.response.status === 403) {
+      //   dispatch({ type: USER_UNAUTHORIZED, payload: err });
+      // } else {
+      //   dispatch({ type: EDIT_EXPERIENCE_FAILURE, payload: err.data });
+      // }
     });
 };
 

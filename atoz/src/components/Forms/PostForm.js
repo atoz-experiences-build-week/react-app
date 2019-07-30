@@ -1,7 +1,7 @@
 import React from 'react'
 import Loader from "react-loader-spinner"
 import { connect } from 'react-redux'
-import { postExperience } from '../actions/actions';
+import { postExperience } from '../../actions/actions';
 
 class PostExperience extends React.Component {
   state = { 

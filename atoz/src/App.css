@@ -17,34 +17,26 @@
 }
 
 .App-header {
+  margin:0;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #000;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.welcome-message {
+.login-page {
   display: flex;
   justify-content: center;
-  margin: 0 0 10px;
-  color: #fff;
+  align-items: center;
+  height: 400px;
 }
+.login-page * {
+   margin: 10px 0;
+}
+
 
 ul {
   display: flex;
@@ -67,22 +59,23 @@ a {
   font-weight: bold;
 }
 
-input {
+/* input {
   height: 20px;
 }
 button {
   height: 25px;
 
-}
+} */
 
 .home {
+  width: 100%;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center; 
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #f5b553;
+  /* border: 1px solid red; */;
+  background-color: #E9ECEF
 }
 
 .experiences-wrapper {
@@ -111,3 +104,13 @@ button {
 .experiences-card i {
   color: royalblue;
  }
+
+ /* .App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+} */

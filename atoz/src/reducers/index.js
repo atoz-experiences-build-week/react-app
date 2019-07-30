@@ -72,7 +72,8 @@ export const reducer = (state = initialState, action) => {
           registering: false,
           registerMessage: action.message,
           newUser: action.payload,
-          loggedIn: true
+          loggedIn: true,
+          loginMessage: ''
         }
 
         case REGISTER_ERROR:
@@ -102,7 +103,8 @@ export const reducer = (state = initialState, action) => {
           loginMessage: action.message,
           loggedInUser: action.payload,
           loggedIn: true,
-          logout: true
+          logout: true,
+          registerMessage: ''
         }
 
         case LOGIN_ERROR:
@@ -166,7 +168,9 @@ export const reducer = (state = initialState, action) => {
               ...state,
               postingExperience: false,
               error: null,
-              experiences: action.payload
+              experiences: action.payload,
+              registerMessage: 'Your experience has been successfully added!',
+              loginMessage: '',
             }
           case POSTING_ERROR:
             return {
@@ -187,8 +191,10 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 deletingExperience: false,
                 error: '',
-                // friends: action.payload,
-                deleteMessage: action.message
+                //experiences: action.payload,
+                //deleteMessage: action.message,
+                registerMessage: action.message, //delete message
+                loginMessage: '',
               };
               case USER_UNAUTHORIZED:
                 console.log(action);
@@ -213,13 +219,15 @@ export const reducer = (state = initialState, action) => {
                     ...state,
                     editingExperience: false,
                     error: '',
-                    experiences: action.payload
+                    experiences: action.payload,
+                    registerMessage: '', //Edit message
+                    loginMessage: '',
                   };
                 case EDIT_EXPERIENCE_FAILURE:
                   return {
                     ...state,
                     editingExperience: false,
-                    error: action.payload
+                    error: action.payload,
                   };
 
       default:

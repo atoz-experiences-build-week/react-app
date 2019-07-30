@@ -1,7 +1,7 @@
 import React from 'react'
 import Loader from "react-loader-spinner"
 import { connect } from 'react-redux'
-import { register } from '../actions/actions';
+import { register } from '../../actions/actions';
 
 class Register extends React.Component {
   state = {

@@ -1,0 +1,28 @@
+.dashboard {
+  font-family:  Helvetica, Arial, sans-serif;
+}
+
+.jumbotron-container {
+  display: flex;
+  justify-content: center;
+}
+
+.jumbotron {
+  width: 90%;
+  height: 52vh;
+}
+
+.btn-share a{
+  color: #fff ;
+}
+.btn-share a:hover{
+  color: #fff ;
+  text-decoration: none;
+}
+
+.welcome-message {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  font-size: 1rem;
+}
