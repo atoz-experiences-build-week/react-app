@@ -9,9 +9,9 @@ const Home = () => {
     <div className='home'>
     <div id="landing-header">
  		<h1>Welcome to A to Z experiences</h1>
-		  <div className="home-buttons">
-      <Button className='btn-home' color="primary" size="lg"><Link to='/login'>Log In</Link></Button>
-      <Button className='btn-home' color="primary" size="lg"><Link to='/register'>Sign Up</Link></Button>
+		 <div className="home-buttons">
+      <Button className='btn-home' color="info" size="lg"><Link to='/login'>Log In</Link></Button>
+      <Button className='btn-home' color="info" size="lg"><Link to='/register'>Sign Up</Link></Button>
      </div>
     </div>
     

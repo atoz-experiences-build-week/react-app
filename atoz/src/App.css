@@ -46,18 +46,6 @@ a {
 }
 
 
-.home {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center; 
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  /* border: 1px solid red; */;
-  background-color: #E9ECEF
-}
-
-
  /* .App-header {
   min-height: 100vh;
   display: flex;

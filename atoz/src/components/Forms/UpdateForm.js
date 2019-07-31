@@ -1,9 +1,10 @@
 import React from 'react';
-//import Loader from 'react-loader-spinner';
+import { Form, Input, Label, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class UpdateForm extends React.Component {
   state = {
-    experience: this.props.experience
+    experience: this.props.experience,
+    modal: true
   };
 
   //WITH CHANGING STRING TO NUMBER 
@@ -35,13 +36,25 @@ class UpdateForm extends React.Component {
   updateExperience = e => {
     this.props.editExperience(e, this.state.experience);
   };
+  
+  
+toggle=()=> {
+  this.setState(prevState => ({
+    modal: !prevState.modal
+  }));
+}
+
+
 
   render() {
     return (
       <div className="edit-form">
-        <form className="edit-form" onSubmit={this.updateExperience}>
-          <label htmlFor="name">Title</label>
-          <input
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+          <ModalHeader >Update Experience</ModalHeader>
+          <ModalBody>
+          <Form className="edit-form" >
+          <Label htmlFor="name">Title</Label>
+          <Input
             type="text"
             name="title"
             placeholder="Title"
@@ -49,8 +62,8 @@ class UpdateForm extends React.Component {
             value={this.state.experience.title}
           />
 
-          <label htmlFor="date">Date</label>
-          <input
+          <Label htmlFor="date">Date</Label>
+          <Input
             type="date"
             name="date"
             placeholder="Date"
@@ -58,8 +71,8 @@ class UpdateForm extends React.Component {
             value={this.state.experience.date}
           />
 
-          <label htmlFor="location">Location</label>
-          <input
+          <Label htmlFor="location">Location</Label>
+          <Input
             type="text"
             name="location"
             placeholder="Location"
@@ -67,8 +80,8 @@ class UpdateForm extends React.Component {
             value={this.state.experience.location}
           />
 
-          <label htmlFor="price">Price</label>
-          <input
+          <Label htmlFor="price">Price</Label>
+          <Input
             type="number"
             name="price"
             placeholder="Price"
@@ -76,25 +89,23 @@ class UpdateForm extends React.Component {
             value={this.state.experience.price}
           />
 
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
+          <Label htmlFor="description">Description</Label>
+          <Input
+            type='textarea'
             name="description"
             placeholder="Description"
             onChange={this.handleChanges}
             value={this.state.experience.description}
-          />
-          <div className="flex-spacer" />
-
-          <button>
-            {/* {this.props.editingExperience ? (
-              <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
-            ) : (
-              'Save'
-            )} */}
-            {this.props.editingExperience ? 'Editing' : 'Save'}
-          </button>
-        </form>
+           />
+           {/* <button>
+             {this.props.editingExperience ? 'Editing' : 'Save'}
+           </button> */}
+          </Form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.updateExperience}>Save changes</Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }

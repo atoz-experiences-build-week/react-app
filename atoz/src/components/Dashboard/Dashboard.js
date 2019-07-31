@@ -4,8 +4,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { register, login, getExperiences, postExperience, deleteExperience, updateExperience } from '../../actions/actions'
 import UpdateForm  from '../Forms/UpdateForm'
 import './Dashboard.css'
-import {Jumbotron,  Alert,  Card, Button, CardHeader, CardFooter, CardBody,
-  CardTitle, CardText } from 'reactstrap';
+import {Jumbotron,  Alert,  Card, Button, CardHeader, CardFooter, CardBody} from 'reactstrap';
 import { ClipLoader } from 'react-spinners'
 
 
@@ -14,7 +13,8 @@ class Dashboard extends React.Component {
   state = {
     deletingExperience: null,
     editingExperienceId: null,
-    filteredExperiences: []
+    filteredExperiences: [],
+    modal: false
   };
 
 componentDidMount() {
@@ -22,25 +22,26 @@ componentDidMount() {
 }
 
 deleteExperience = id => {
-  this.props.deleteExperience(id).then(() => {
-    this.setState({ deletingExperienceId: id });
-    this.props.getExperiences()
+   this.props.deleteExperience(id).then(() => {
+   this.setState({filteredExperiences: [], deletingExperienceId: id });
+   this.props.getExperiences()
   })
 }
 
 editExperience = (e, experience) => {
-  e.preventDefault();
-  this.props.updateExperience(experience).then(() => {
-  this.setState({ editingExperienceId: null });
-  this.props.getExperiences()
+   e.preventDefault();
+   this.props.updateExperience(experience).then(() => {
+   this.setState({filteredExperiences: [], editingExperienceId: null });
+   this.props.getExperiences()
   })
 }
 
-  
+
+
   searchPostsHandler = e => {
     console.log(this.state)
-    const exp = this.props.experiences.filter(curr => curr.location.includes(e.target.value));
-     this.setState({ filteredExperiences: exp })
+    const exp = this.props.experiences.filter(curr => curr.title.includes(e.target.value));
+    this.setState({ filteredExperiences: exp })
   };
 
 
@@ -87,10 +88,42 @@ editExperience = (e, experience) => {
           </div>
          </Jumbotron>
         </div>
+
         <div className="experiences-wrapper">
-
-          {this.props.experiences.map(exp => {
-
+          {this.state.filteredExperiences.length > 0 ? this.state.filteredExperiences.map(exp => {
+            if(this.state.editingExperienceId === exp.id) {
+            return (
+              <div className="update-form" key={exp.id}>
+               <UpdateForm
+                  experience={exp}
+                  editExperience={this.editExperience}
+                  editingExperience={this.props.editingExperience}
+                />
+              </div>
+            )
+          }
+          return (
+            <div className="experiences-card" key={exp.id}>
+                <Card>
+                  <CardHeader tag="h4">{exp.title}</CardHeader>
+                  <CardBody>
+                     <p><strong>Location:</strong>{exp.location}</p>
+                     <p><strong>Date:</strong>{exp.date}</p>
+                     <p><strong>Price:</strong>{exp.price}</p>
+                     <p><strong>Description:</strong>{exp.description}</p>
+                  </CardBody>
+                  <CardFooter className="text-muted">
+                    <div className="card-footer">
+                     <Button onClick={() => this.setState({ editingExperienceId: exp.id })}>Update</Button>
+                     <Button  onClick={() => this.deleteExperience(exp.id)}>Delete</Button>
+                    </div>
+                  </CardFooter>
+               </Card>
+            </div>
+           );
+         })
+        
+        : this.props.experiences.map(exp => {
             if(this.state.editingExperienceId === exp.id) {
             return (
               <div className="update-form" key={exp.id}>
@@ -102,32 +135,15 @@ editExperience = (e, experience) => {
               </div>
             )
           }
-           
           return (
             <div className="experiences-card" key={exp.id}>
-            {/* <div className="experiences-card" key={exp.id}> */}
-              {/* <i
-                className="fas fa-pencil-alt"
-                onClick={() => this.setState({ editingExperienceId: exp.id })}
-              />                               
-              <i
-                className="fas fa-times"
-                onClick={() => this.deleteExperience(exp.id)}
-              /> */}
-                {/* <h4>{exp.title}</h4>
-                <p>{exp.location}</p>
-                <p>{exp.date}</p>
-                <p>{exp.price}</p>
-                <p>{exp.description}</p> */}
                 <Card>
                   <CardHeader tag="h4">{exp.title}</CardHeader>
                   <CardBody>
-                    <CardText> 
                      <p><strong>Location:</strong>{exp.location}</p>
                      <p><strong>Date:</strong>{exp.date}</p>
                      <p><strong>Price:</strong>{exp.price}</p>
                      <p><strong>Description:</strong>{exp.description}</p>
-                    </CardText>
                   </CardBody>
                   <CardFooter className="text-muted">
                     <div className="card-footer">
@@ -135,16 +151,12 @@ editExperience = (e, experience) => {
                      <Button  onClick={() => this.deleteExperience(exp.id)}>Delete</Button>
                     </div>
                   </CardFooter>
-                  
                </Card>
-             
-            </div>
-          );
-        })} 
-
-
-
-          </div>
+              </div>
+             );
+            })
+           } 
+        </div>
       </div>
     );
   };
