@@ -59,7 +59,7 @@ render() {
             onChange={this.handleChange}
            />
 
-        <button type="submit" class="btn btn-login btn-primary">
+        <button type="submit" className="btn btn-login btn-primary">
           {this.props.isLoggingIn ? 'Loading' : 'Login'}
         </button>
         <p>Do not have an account yet?<Link to='/register'>Sign Up here!</Link></p>

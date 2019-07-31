@@ -1,19 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import Loader from 'react-loader-spinner'
 import { register, login, getExperiences, postExperience, deleteExperience, updateExperience } from '../../actions/actions'
 import UpdateForm  from '../Forms/UpdateForm'
 import './Dashboard.css'
-
-import { Jumbotron, Button, Alert } from 'reactstrap';
+import {Jumbotron,  Alert,  Card, Button, CardHeader, CardFooter, CardBody,
+  CardTitle, CardText } from 'reactstrap';
+import { ClipLoader } from 'react-spinners'
 
 
 
 class Dashboard extends React.Component {
   state = {
     deletingExperience: null,
-    editingExperienceId: null
+    editingExperienceId: null,
+    filteredExperiences: []
   };
 
 componentDidMount() {
@@ -21,9 +22,10 @@ componentDidMount() {
 }
 
 deleteExperience = id => {
-  this.setState({ deletingExperienceId: id });
-  this.props.deleteExperience(id)
-  this.props.getExperiences()
+  this.props.deleteExperience(id).then(() => {
+    this.setState({ deletingExperienceId: id });
+    this.props.getExperiences()
+  })
 }
 
 editExperience = (e, experience) => {
@@ -34,27 +36,49 @@ editExperience = (e, experience) => {
   })
 }
 
+  
+  searchPostsHandler = e => {
+    console.log(this.state)
+    const exp = this.props.experiences.filter(curr => curr.location.includes(e.target.value));
+     this.setState({ filteredExperiences: exp })
+  };
+
 
   render() {
     if (this.props.fetchingExperiences) {
       return (
-        <div className="experiences" style={{ paddingTop: '36px' }}>
-          <Loader type="Puff" color="#ffffff" height="100" width="100" />
-        </div>
+        <div className='sweet-loading'>
+         <ClipLoader
+          sizeUnit={"px"}
+          size={150}
+          color={'#123abc'}
+          loading={this.state.loading}
+         />
+      </div>
       );
     }
- 
     return (
       <div className='dashboard'>
 
         <div className="jumbotron-container">
          <Jumbotron className='jumbotron'>
-          <h1 className="display-3">Welcome to A to Z</h1>
+          <h1 className="display-3"><i className="fas fa-city home-logo"></i> Welcome to AtoZ</h1>
           <p className="lead">Explore the best AtoZ experiences in the world!</p>
-          <hr className="my-2" />
-          <p className="lead">
-          <Button className='btn-share' color="primary"><Link to='/post'>Share Experience</Link></Button>
-          </p>
+          <hr className="my-2"/>
+
+          <div className='cta-box'>
+           <Button className='btn-share' color="primary"><Link to='/post'>Share Experience</Link></Button>
+           <div className='search'>
+             <input 
+              id='search-input'
+              name='search'
+              placeholder='Search experiences'
+              onChange={this.searchPostsHandler}
+             />
+             <i className="fas fa-search"></i>
+           </div>
+          </div>
+
           <div className="welcome-message">
            <Alert color="success">
              {this.props.registerMessage && this.props.registerMessage}
@@ -81,23 +105,39 @@ editExperience = (e, experience) => {
            
           return (
             <div className="experiences-card" key={exp.id}>
-              <i
+            {/* <div className="experiences-card" key={exp.id}> */}
+              {/* <i
                 className="fas fa-pencil-alt"
                 onClick={() => this.setState({ editingExperienceId: exp.id })}
               />                               
               <i
                 className="fas fa-times"
                 onClick={() => this.deleteExperience(exp.id)}
-              />
-                <h4>{exp.title}</h4>
+              /> */}
+                {/* <h4>{exp.title}</h4>
                 <p>{exp.location}</p>
                 <p>{exp.date}</p>
                 <p>{exp.price}</p>
-                <p>{exp.description}</p>
-                {/* {this.props.deletingExperience &&
-                this.state.deletingExperienceId === exp.id && (
-                  <p>Deleting Experience x</p>
-                )} */}
+                <p>{exp.description}</p> */}
+                <Card>
+                  <CardHeader tag="h4">{exp.title}</CardHeader>
+                  <CardBody>
+                    <CardText> 
+                     <p><strong>Location:</strong>{exp.location}</p>
+                     <p><strong>Date:</strong>{exp.date}</p>
+                     <p><strong>Price:</strong>{exp.price}</p>
+                     <p><strong>Description:</strong>{exp.description}</p>
+                    </CardText>
+                  </CardBody>
+                  <CardFooter className="text-muted">
+                    <div className="card-footer">
+                     <Button onClick={() => this.setState({ editingExperienceId: exp.id })}>Update</Button>
+                     <Button  onClick={() => this.deleteExperience(exp.id)}>Delete</Button>
+                    </div>
+                  </CardFooter>
+                  
+               </Card>
+             
             </div>
           );
         })} 

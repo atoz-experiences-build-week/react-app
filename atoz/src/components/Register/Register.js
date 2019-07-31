@@ -84,7 +84,7 @@ render() {
         onChange={this.handleChange}
       />
        <button className='btn-register btn btn-primary'>
-          {this.props.isLoggingIn ? 'Loading' : 'Sign Up'} 
+          {this.props.registering ? 'Loading' : 'Sign Up'} 
        </button>
        <p>Already have an account?<Link to='/login'>Log In here!</Link></p>
     </Form>

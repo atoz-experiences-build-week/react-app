@@ -29,7 +29,8 @@ class App extends React.Component {
     <div className="App">
          <ul className='navbar'>
           <li>
-            <Link to='/'>Home</Link>
+          <i className="fas fa-city"></i>
+            <Link to='/'>ATOZ</Link>
           </li>
           <li>
              {this.props.loggedIn ? 

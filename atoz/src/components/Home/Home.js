@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './Home.css'
+import { Button } from 'reactstrap'
 
 
 const Home = () => {
@@ -9,8 +10,8 @@ const Home = () => {
     <div id="landing-header">
  		<h1>Welcome to A to Z experiences</h1>
 		  <div className="home-buttons">
-       <button className="btn btn-lg btn-info"><Link to='/login'>Log In</Link></button>
-       <button className="btn btn-lg btn-info"><Link to='/register'>Sign Up</Link></button>
+      <Button className='btn-home' color="primary" size="lg"><Link to='/login'>Log In</Link></Button>
+      <Button className='btn-home' color="primary" size="lg"><Link to='/register'>Sign Up</Link></Button>
      </div>
     </div>
     

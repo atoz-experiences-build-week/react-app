@@ -109,7 +109,7 @@ export const USER_UNAUTHORIZED = 'USER_UNAUTHORIZED';
 
 export const deleteExperience = id => dispatch => {
   dispatch({ type: DELETE_START });
-  axios
+  return axios
     .delete(`https://atoz-backend.herokuapp.com/api/experiences/${id}`, {
       headers: { Authorization: localStorage.getItem('token') }
     })
@@ -150,11 +150,11 @@ export const updateExperience = experience => dispatch => {
     })
     .catch(err => {
       console.log(err)
-      // if (err.response.status === 403) {
-      //   dispatch({ type: USER_UNAUTHORIZED, payload: err });
-      // } else {
-      //   dispatch({ type: EDIT_EXPERIENCE_FAILURE, payload: err.data });
-      // }
+      if (err.response.status === 403) {
+        dispatch({ type: USER_UNAUTHORIZED, payload: err });
+      } else {
+        dispatch({ type: EDIT_EXPERIENCE_FAILURE, payload: err.data });
+      }
     });
 };
 

@@ -212,7 +212,9 @@ export const reducer = (state = initialState, action) => {
                 case EDIT_EXPERIENCE_START:
                   return {
                     ...state,
-                    editingExperience: true
+                    editingExperience: true,
+                    registerMessage: 'Experience was successfully updated.', 
+                    loginMessage: '',
                   };
                 case EDIT_EXPERIENCE_SUCCESS:
                   return {
@@ -220,8 +222,6 @@ export const reducer = (state = initialState, action) => {
                     editingExperience: false,
                     error: '',
                     experiences: action.payload,
-                    registerMessage: '', //Edit message
-                    loginMessage: '',
                   };
                 case EDIT_EXPERIENCE_FAILURE:
                   return {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Loader from 'react-loader-spinner';
+//import Loader from 'react-loader-spinner';
 
 class UpdateForm extends React.Component {
   state = {
@@ -37,8 +37,6 @@ class UpdateForm extends React.Component {
   };
 
   render() {
-    console.log('SSSSSSSSSSSSSSSSS', this.state.experience.title)
-    console.log('PPPPPPPPPPPPPPPPP', this.props.experience.title)
     return (
       <div className="edit-form">
         <form className="edit-form" onSubmit={this.updateExperience}>
@@ -89,11 +87,12 @@ class UpdateForm extends React.Component {
           <div className="flex-spacer" />
 
           <button>
-            {this.props.editingExperience ? (
+            {/* {this.props.editingExperience ? (
               <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
             ) : (
               'Save'
-            )}
+            )} */}
+            {this.props.editingExperience ? 'Editing' : 'Save'}
           </button>
         </form>
       </div>
