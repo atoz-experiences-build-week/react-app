@@ -23,7 +23,11 @@ import {
 
   EDIT_EXPERIENCE_START,
   EDIT_EXPERIENCE_SUCCESS,
-  EDIT_EXPERIENCE_FAILURE
+  EDIT_EXPERIENCE_FAILURE,
+
+  GET_USER_EXP_START, 
+  GET_USER_EXP_SUCCESS,  
+  GET_USER_EXP_ERROR 
 } from "../actions/actions";
 
 
@@ -49,7 +53,9 @@ const initialState = {
    deletingExperience: false,
    deleteMessage: '',
 
-   editingExperience: false
+   editingExperience: false,
+
+   userExperiences: []
 }
 
 
@@ -176,7 +182,8 @@ export const reducer = (state = initialState, action) => {
             return {
               ...state,
               postingExperience: false,
-              error: action.payload
+              loginMessage: '',
+              registerMessage: action.payload, 
             }
               
               //DELETING EXPERIENCE
@@ -229,6 +236,34 @@ export const reducer = (state = initialState, action) => {
                     editingExperience: false,
                     error: action.payload,
                   };
+
+
+                //FETCHING EXP BY USER ID
+               case GET_USER_EXP_START:
+                return {
+                  ...state,
+                   fetchingUserExperiences: true,
+                   error: null
+                }
+
+
+                case GET_USER_EXP_SUCCESS: {
+                  // const userExp = state.experiences.map(exp => exp.user_id === action.payload.user_id  ? action.payload : exp)
+                  return {
+                    ...state,
+                    fetchingPersonal: false,
+                    error: false,
+                    fetchingUserExperiences: false,
+                    userExperiences: action.payload
+                  }
+                }
+
+               case GET_USER_EXP_ERROR:
+                return {
+                 ...state,
+                 fetchingUserExperiences: false,
+                 error: action.payload
+                }
 
       default:
       return state

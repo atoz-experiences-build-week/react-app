@@ -84,6 +84,8 @@ editExperience = (e, experience) => {
            <Alert color="success">
              {this.props.registerMessage && this.props.registerMessage}
              {this.props.loginMessage && this.props.loginMessage}
+             {this.props.loggedInUser && this.props.loggedInUser.id}
+            
            </Alert>
           </div>
          </Jumbotron>
@@ -165,6 +167,9 @@ editExperience = (e, experience) => {
 const mapStateToProps = state => {
   console.log('STATE from DASHBOARD:', state)
   return {
+    loggedInUser: state.loggedInUser,
+    loggedIn: state.loggedIn,
+    
     registerMessage: state.registerMessage,
     loginMessage: state.loginMessage,
 

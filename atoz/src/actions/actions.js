@@ -93,6 +93,7 @@ export const postExperience = experience => {
         dispatch({ type: POSTING_SUCCESS, payload: res.data });
       })
       .catch(err => {
+        console.log('ERROR of POST', err)
         dispatch({ type: POSTING_ERROR, payload: err.message });
       });
   };
@@ -159,7 +160,49 @@ export const updateExperience = experience => dispatch => {
 };
 
 
+// GET USER EXPERIENCES 
+export const GET_USER_EXP_START = "GET_USER_EXP_START";
+export const GET_USER_EXP_SUCCESS = "GET_USER_EXP_SUCCESS";
+export const GET_USER_EXP_ERROR = "GET_USER_EXP_ERROR";
 
+
+export const getUserExperiences = (id) => dispatch => {
+  dispatch({ type: GET_USER_EXP_START })
+  return axios
+    .get(`https://atoz-backend.herokuapp.com/api/users/${id}/host_experiences`, {
+      headers: { Authorization: localStorage.getItem('token') }
+    })
+    .then(res => {
+      console.log('RES OF GET USER EXPERIENCES BY USER ID', res)
+      dispatch({
+         type: GET_USER_EXP_SUCCESS, 
+         payload: res.data.experiences,
+         //message: res.data.message
+        });
+    })
+    .catch(err => {
+      console.log('call failed: ', err.response);
+        dispatch({ type: GET_USER_EXP_ERROR, payload: err.response })
+    });
+};
+
+//EXAMPLE
+// componentDidMount(){
+//   this.props.personalInfo(this.props.match.params.id)
+// }
+
+// export function personalInfo(id) {
+//   return (dispatch) => {
+//     dispatch({type: GET_PERSONAL_INFO})
+//     axios.get(`https://prison-skills.herokuapp.com/prisoners/${id}`)
+//       .then(resolve => {
+//         dispatch({type: GET_PERSONAL_SUCCESS, payload: resolve.data})
+//       })
+//       .catch(err => {
+//         dispatch({type: GET_PERSONAL_FAIL, payload: err})
+//       })
+//   }
+// }
 
 
  

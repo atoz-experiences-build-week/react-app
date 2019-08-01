@@ -8,6 +8,7 @@ import './Post.css'
 
 class PostExperience extends React.Component {
   state = { 
+      user_id: "",
       title: "",
       date: "",
       location: "",
@@ -24,9 +25,10 @@ class PostExperience extends React.Component {
   
     postExperienceHandler = (e)=> {
       e.preventDefault()
-      const {title, date, location, price, description} = this.state
-      this.props.postExperience({ title, date, location, price, description})
+      const {user_id, title, date, location, price, description} = this.state
+      this.props.postExperience({ user_id, title, date, location, price, description})
       this.setState({   
+        user_id: "",
         title: "",
         date: "",
         location: "",
@@ -52,6 +54,13 @@ render() {
         name='title'
         placeholder='Title'
         value={this.state.title}
+        onChange={this.handleChange}
+      />
+      <Input
+        type='number'
+        name='user_id'
+        placeholder='User Id'
+        value={this.state.user_id}
         onChange={this.handleChange}
       />
       <Input

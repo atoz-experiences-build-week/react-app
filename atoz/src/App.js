@@ -11,7 +11,7 @@ import {logout} from './actions/actions'
 import Dashboard from './components/Dashboard/Dashboard';
 import Home from './components/Home/Home'
 import PostExperience from './components/Forms/PostForm'
-
+import UserExperiences from './components/UserExperiences/UserExperiences'
 
 
 class App extends React.Component {
@@ -35,7 +35,8 @@ class App extends React.Component {
           <li>
              {this.props.loggedIn ? 
              <div className="div">
-             <button onClick={this.logOut} class="btn btm-sm btn-primary">Logout</button> 
+             <Link to='/user-page'>My Experiences</Link>
+              <button onClick={this.logOut} className="btn btm-sm btn-primary">Logout</button> 
              </div> : 
               <span>
                 <Link to='/login'>Login</Link>
@@ -59,6 +60,10 @@ class App extends React.Component {
         <PrivateRoute
          exact path='/post'
          component={PostExperience}
+        />
+        <PrivateRoute
+         exact path='/user-page'
+         component={UserExperiences}
         />
       </header>
     </div>

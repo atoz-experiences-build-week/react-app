@@ -34,7 +34,7 @@ render() {
   return (
    <div className='login-page'>
    <div className='form-wrapper'>
-    {this.props.error && this.props.error} 
+    {/* {this.props.error && this.props.error}  */}
     <h1>Log In here</h1>
      <Form className='login-form' onSubmit={this.login}> 
           {/* <Label for="exampleEmail" className="mr-sm-2">Username</Label> */}
