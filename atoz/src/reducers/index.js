@@ -24,38 +24,28 @@ import {
   EDIT_EXPERIENCE_START,
   EDIT_EXPERIENCE_SUCCESS,
   EDIT_EXPERIENCE_FAILURE,
-
-  GET_USER_EXP_START, 
-  GET_USER_EXP_SUCCESS,  
-  GET_USER_EXP_ERROR 
 } from "../actions/actions";
 
 
 
 const initialState = {
-  newUser: [],
-  loggedInUser: [],
-  users: [],
-  user:[],
   registering: false,
   registerMessage: null,
+  registeredUser: '',
+
+  loggedInUser: [],
   loginMessage: null,
-  error: null,
   isLoggingIn: false,
+  loggedIn: false, 
 
-  loggedIn: false,
+  error: null,
 
+  experiences: [],
   fetchingExperiences: false,
-
-   experiences: [],
-   postingExperience: false,
-
-   deletingExperience: false,
-   deleteMessage: '',
-
-   editingExperience: false,
-
-   userExperiences: []
+  postingExperience: false,
+  editingExperience: false,
+  deletingExperience: false,
+  deleteMessage: '', 
 }
 
 
@@ -79,7 +69,8 @@ export const reducer = (state = initialState, action) => {
           registerMessage: action.message,
           newUser: action.payload,
           loggedIn: true,
-          loginMessage: ''
+          loginMessage: '',
+          registeredUser: action.payload.username
         }
 
         case REGISTER_ERROR:
@@ -91,15 +82,15 @@ export const reducer = (state = initialState, action) => {
             newUser: ''
           }
 
-             //LOGIN 
-    case LOGIN_START:
-      return {
+           //LOGIN 
+      case LOGIN_START:
+       return {
         ...state,
           error: null,
           isLoggingIn: true,
           loggedInUser: '',
           loggedIn: false,
-     }
+      }
 
       case LOGIN_SUCCESS:
         return {
@@ -110,7 +101,8 @@ export const reducer = (state = initialState, action) => {
           loggedInUser: action.payload,
           loggedIn: true,
           logout: true,
-          registerMessage: ''
+          registerMessage: '',
+          registeredUser: action.payload.username
         }
 
         case LOGIN_ERROR:
@@ -133,10 +125,7 @@ export const reducer = (state = initialState, action) => {
               loggedIn: false,
             }
 
-
-
           //FETCHING EXPERIENCES
-
         case FETCH_EXPERIENCES_START:
           return {
             ...state,
@@ -158,11 +147,8 @@ export const reducer = (state = initialState, action) => {
             fetchingExperiences: false,
             error: action.payload
           }
-
-       
           
           //POSTING EXPERIENCES  
-
           case POSTING_START:
             return {
               ...state,
@@ -187,7 +173,6 @@ export const reducer = (state = initialState, action) => {
             }
               
               //DELETING EXPERIENCE
-
             case DELETE_START:
               return {
                 ...state,
@@ -198,13 +183,10 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 deletingExperience: false,
                 error: '',
-                //experiences: action.payload,
-                //deleteMessage: action.message,
-                registerMessage: action.message, //delete message
+                registerMessage: action.message, 
                 loginMessage: '',
               };
               case USER_UNAUTHORIZED:
-                console.log(action);
                 return {
                   ...state,
                   error: action.payload.data.error,
@@ -215,7 +197,6 @@ export const reducer = (state = initialState, action) => {
 
 
                 // EDIT EXPERIENCE
-                
                 case EDIT_EXPERIENCE_START:
                   return {
                     ...state,
@@ -235,37 +216,9 @@ export const reducer = (state = initialState, action) => {
                     ...state,
                     editingExperience: false,
                     error: action.payload,
-                  };
+                };
 
-
-                //FETCHING EXP BY USER ID
-               case GET_USER_EXP_START:
-                return {
-                  ...state,
-                   fetchingUserExperiences: true,
-                   error: null
-                }
-
-
-                case GET_USER_EXP_SUCCESS: {
-                  // const userExp = state.experiences.map(exp => exp.user_id === action.payload.user_id  ? action.payload : exp)
-                  return {
-                    ...state,
-                    fetchingPersonal: false,
-                    error: false,
-                    fetchingUserExperiences: false,
-                    userExperiences: action.payload
-                  }
-                }
-
-               case GET_USER_EXP_ERROR:
-                return {
-                 ...state,
-                 fetchingUserExperiences: false,
-                 error: action.payload
-                }
-
-      default:
-      return state
-  }
-}
+         default:
+         return state
+       }
+      }

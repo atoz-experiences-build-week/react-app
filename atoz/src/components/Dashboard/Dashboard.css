@@ -38,8 +38,7 @@
 .cta-box {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
-  /* border: 1px solid green; */
+  margin-bottom: 11px;
 }
 
 .search {
@@ -102,9 +101,6 @@
   margin: 5px;
  }
 
-.experiences-card i {
-  color: royalblue;
- }
 
  .card-footer {
    display: flex;

@@ -11,7 +11,6 @@ export const register = creds => dispatch => {
   return axios
     .post('https://atoz-backend.herokuapp.com/api/register', creds)
     .then(res => {
-      console.log('RES form AXIOS REGISTER', res.data)
       localStorage.setItem("token", res.data.token);
       dispatch({ 
         type: REGISTER_SUCCESS, 
@@ -19,7 +18,6 @@ export const register = creds => dispatch => {
         message: res.data.message});
      })
     .catch(err => {
-      console.log('ERROR from AXIOS REGISTER:', err.message)
       dispatch({ type: REGISTER_ERROR, payload: err.message });
     });
  };
@@ -42,7 +40,6 @@ export const login = creds => dispatch => {
         message: res.data.message});
     })
     .catch(err => {
-      console.log('ERROR from AXIOS LOGIN:', err.message)
       dispatch({ type: LOGIN_ERROR, payload: err.message });
     });
  };
@@ -51,7 +48,6 @@ export const login = creds => dispatch => {
  export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
  export const logout = () => {
-   console.log('LOG OUT LOG', logout)
   return {
     type: 'LOGOUT_SUCCESS'
   }
@@ -68,7 +64,6 @@ export const getExperiences = () => dispatch => {
   axiosWithAuth()
  .get('/experiences')
  .then(res => {
-   console.log('RES GET CALL from AXIOS', res)
    dispatch({type: FETCH_EXPERIENCES_SUCCESS, payload: res.data.experiences})
  })
   .catch(err => {
@@ -89,11 +84,9 @@ export const postExperience = experience => {
     dispatch({ type: POSTING_START });
     newExperience
       .then(res => {
-        console.log('RES of POST', res)
         dispatch({ type: POSTING_SUCCESS, payload: res.data });
       })
       .catch(err => {
-        console.log('ERROR of POST', err)
         dispatch({ type: POSTING_ERROR, payload: err.message });
       });
   };
@@ -101,7 +94,6 @@ export const postExperience = experience => {
 
 
 //DELETE
-
 export const DELETE_START = "DELETE_START";
 export const DELETE_SUCCESS = "DELETE_SUCCESS";
 export const DELETE_ERROR = "DELETE_ERROR";
@@ -115,15 +107,12 @@ export const deleteExperience = id => dispatch => {
       headers: { Authorization: localStorage.getItem('token') }
     })
     .then(res => {
-      console.log('RES OF DELETE AXIOS CALL', res)
       dispatch({
          type: DELETE_SUCCESS, 
-        // payload: res.data.experiences,
          message: res.data.message
         });
     })
     .catch(err => {
-      console.log('call failed: ', err.response);
       if (err.response.status === 500) {
         dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
       } else {
@@ -134,7 +123,6 @@ export const deleteExperience = id => dispatch => {
 
 
 //EDIT
-
 export const EDIT_EXPERIENCE_START = 'EDIT_EXPERIENCE_START';
 export const EDIT_EXPERIENCE_SUCCESS = 'EDIT_EXPERIENCE_SUCCESS';
 export const EDIT_EXPERIENCE_FAILURE = 'EDIT_EXPERIENCE_FAILURE';
@@ -146,11 +134,9 @@ export const updateExperience = experience => dispatch => {
       headers: { Authorization: localStorage.getItem('token') }
     })
     .then(res => {
-      console.log('fffffffffffffffffffffRES OF PUTTTTTTTT AXIOS CALL', res)
       dispatch({ type: EDIT_EXPERIENCE_SUCCESS, payload: res.data.experiences });
     })
     .catch(err => {
-      console.log(err)
       if (err.response.status === 403) {
         dispatch({ type: USER_UNAUTHORIZED, payload: err });
       } else {
@@ -173,63 +159,13 @@ export const getUserExperiences = (id) => dispatch => {
       headers: { Authorization: localStorage.getItem('token') }
     })
     .then(res => {
-      console.log('RES OF GET USER EXPERIENCES BY USER ID', res)
       dispatch({
          type: GET_USER_EXP_SUCCESS, 
          payload: res.data.experiences,
-         //message: res.data.message
         });
     })
     .catch(err => {
-      console.log('call failed: ', err.response);
         dispatch({ type: GET_USER_EXP_ERROR, payload: err.response })
     });
 };
-
-//EXAMPLE
-// componentDidMount(){
-//   this.props.personalInfo(this.props.match.params.id)
-// }
-
-// export function personalInfo(id) {
-//   return (dispatch) => {
-//     dispatch({type: GET_PERSONAL_INFO})
-//     axios.get(`https://prison-skills.herokuapp.com/prisoners/${id}`)
-//       .then(resolve => {
-//         dispatch({type: GET_PERSONAL_SUCCESS, payload: resolve.data})
-//       })
-//       .catch(err => {
-//         dispatch({type: GET_PERSONAL_FAIL, payload: err})
-//       })
-//   }
-// }
-
-
- 
-/////////////////////////////////////////////////////////////
-
-// //GET CALL WITH THE AUTH IN ONE PLACE
-// // export default function getFriends() {
-// //   return dispatch => {
-// //     dispatch({ type: FETCH_FRIENDS_START });
-
-// //     const token = localStorage.token
-// //     const headers = {
-// //       Authorization: token
-// //     }
-// //     axios
-// //       .get("http://localhost:5000/api/friends/", {headers})
-// //       .then(res => {
-// //         console.log(res);
-// //         dispatch({ type: FETCH_FRIENDS_SUCCESS, payload: res.data });
-// //       })
-// //       .catch(err => {
-// //         console.log(err);
-// //         dispatch({ type: FETCH_FRIENDS_ERROR, payload: err.response.data });
-// //       });
-// //   };
-// // }
-
-
-
 

@@ -1,17 +1,16 @@
 import React from 'react'
-import './App.css'
 import { Route, Link, withRouter } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
 import { connect } from 'react-redux'
 import { register, login } from './actions/actions'
 
+import './App.css'
 import Register from './components/Register/Register'
 import Login from './components/Login/Login'
-import {logout} from './actions/actions'
+import { logout } from './actions/actions'
 import Dashboard from './components/Dashboard/Dashboard';
 import Home from './components/Home/Home'
 import PostExperience from './components/Forms/PostForm'
-import UserExperiences from './components/UserExperiences/UserExperiences'
 
 
 class App extends React.Component {
@@ -35,8 +34,9 @@ class App extends React.Component {
           <li>
              {this.props.loggedIn ? 
              <div className="div">
-             <Link to='/user-page'>My Experiences</Link>
+             <span>Signed In as <strong><em>{this.props.registeredUser}</em></strong></span>
               <button onClick={this.logOut} className="btn btm-sm btn-primary">Logout</button> 
+              
              </div> : 
               <span>
                 <Link to='/login'>Login</Link>
@@ -61,10 +61,6 @@ class App extends React.Component {
          exact path='/post'
          component={PostExperience}
         />
-        <PrivateRoute
-         exact path='/user-page'
-         component={UserExperiences}
-        />
       </header>
     </div>
   )
@@ -72,10 +68,9 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => {
-  // console.log('STATE from DASHBOARD:', state)
   return {
+    registeredUser: state.registeredUser,
     loggedInUser: state.loggedInUser,
-    newUser: state.newUser,
     loggedIn: state.loggedIn,
     logout: state.logout
   }
@@ -88,12 +83,3 @@ connect(
   )(App)
 )
 
-
-//IMPLEMENTING NAMES
-        // {this.props.newUser &&
-        //      <h4> {this.props.newUser.username}</h4>
-        //     }
-          
-        //     {this.props.loggedInUser &&
-        //       <h4>{this.props.loggedInUser.username}</h4>
-        //     } 

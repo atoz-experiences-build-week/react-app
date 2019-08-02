@@ -7,20 +7,6 @@ class UpdateForm extends React.Component {
     modal: true
   };
 
-  //WITH CHANGING STRING TO NUMBER 
-  // handleChanges = e => {
-  //   let value = e.target.value;
-  //   if (e.target.name === 'price') {
-  //     value = parseInt(value, 10);
-  //   }
-
-  //   this.setState({
-  //     experience: {
-  //       ...this.state.experience,
-  //       [e.target.name]: value
-  //     }
-  //   });
-  // };
 
   handleChanges = e => {
     e.preventDefault()
@@ -97,9 +83,6 @@ toggle=()=> {
             onChange={this.handleChanges}
             value={this.state.experience.description}
            />
-           {/* <button>
-             {this.props.editingExperience ? 'Editing' : 'Save'}
-           </button> */}
           </Form>
           </ModalBody>
           <ModalFooter>
