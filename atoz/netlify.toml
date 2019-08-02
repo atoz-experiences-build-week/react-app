@@ -1,4 +1,4 @@
-[build]
+[atoz]
   base    = "./<THEfOLDERwITHyOURrEACTaPP>"
   publish = "./<THEfOLDERwITHyOURrEACTaPP>/build"
   command = "npm run build" 
