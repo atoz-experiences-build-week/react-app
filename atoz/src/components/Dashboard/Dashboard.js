@@ -17,9 +17,11 @@ class Dashboard extends React.Component {
     modal: false
   };
 
+
 componentDidMount() {
   this.props.getExperiences()
 }
+
 
 deleteExperience = id => {
    this.props.deleteExperience(id).then(() => {
@@ -27,6 +29,7 @@ deleteExperience = id => {
    this.props.getExperiences()
   })
 }
+
 
 editExperience = (e, experience) => {
    e.preventDefault();
@@ -37,12 +40,11 @@ editExperience = (e, experience) => {
 }
 
 
-
   searchPostsHandler = e => {
-    console.log(this.state)
     const exp = this.props.experiences.filter(curr => curr.title.includes(e.target.value));
     this.setState({ filteredExperiences: exp })
   };
+
 
 
   render() {
@@ -60,7 +62,6 @@ editExperience = (e, experience) => {
     }
     return (
       <div className='dashboard'>
-
         <div className="jumbotron-container">
          <Jumbotron className='jumbotron'>
           <h1 className="display-3"><i className="fas fa-city home-logo"></i> Welcome to AtoZ</h1>
@@ -84,8 +85,6 @@ editExperience = (e, experience) => {
            <Alert color="success">
              {this.props.registerMessage && this.props.registerMessage}
              {this.props.loginMessage && this.props.loginMessage}
-             {this.props.loggedInUser && this.props.loggedInUser.id}
-            
            </Alert>
           </div>
          </Jumbotron>
@@ -165,7 +164,6 @@ editExperience = (e, experience) => {
 };
 
 const mapStateToProps = state => {
-  console.log('STATE from DASHBOARD:', state)
   return {
     loggedInUser: state.loggedInUser,
     loggedIn: state.loggedIn,
@@ -193,8 +191,3 @@ export default withRouter (
   )(Dashboard)
 )
 
-
-//Delete problem solving
-//1.Make second get request and replace the data with new data 
-//Or 
-//2.Set state and replace state via function

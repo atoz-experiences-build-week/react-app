@@ -34,10 +34,9 @@ render() {
   return (
    <div className='login-page'>
    <div className='form-wrapper'>
-    {/* {this.props.error && this.props.error}  */}
+    {this.props.error && this.props.error} 
     <h1>Log In here</h1>
      <Form className='login-form' onSubmit={this.login}> 
-          {/* <Label for="exampleEmail" className="mr-sm-2">Username</Label> */}
           <Input 
             className='login-input'
             type="text" 
@@ -47,8 +46,6 @@ render() {
             value={this.state.credentials.username}
             onChange={this.handleChange}
            />
-  
-          {/* <Label for="examplePassword" className="mr-sm-2">Password</Label> */}
           <Input 
             className='login-input'
             type="password" 
@@ -71,7 +68,6 @@ render() {
 }
 
 const mapStateToProps = state => {
-  console.log('STATE from mapStateToProps:', state)
   return {
     isLoggingIn: state.isLoggingIn,
     error: state.error,

@@ -94,7 +94,6 @@ render() {
 }
 
 const mapStateToProps = state => {
-  console.log('STATE from mapStateToProps:', state)
   return {
     registering: state.registering,
     error: state.error
